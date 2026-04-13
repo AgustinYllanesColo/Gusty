@@ -1,0 +1,721 @@
+/* ==========================================================================
+   1. Variables Base y Tokens de Diseño Ultra Premium (V5)
+   ========================================================================== */
+   :root {
+    --bg-dark: #050508; /* Negro ultra profundo, puro SaaS/Agency premium */
+    --bg-surface: rgba(18, 19, 24, 0.4);
+    --bg-surface-solid: #111216;
+    
+    --accent-orange: #ff5e3a; 
+    --accent-red: #e63946;
+    
+    --whatsapp-green: #25D366;
+    --whatsapp-green-dark: #1EBE5D;
+    
+    --text-primary: #ffffff;
+    --text-secondary: #9ca3af; /* Gris sutilmente azulado, elegante para leer */
+    
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ==========================================================================
+   2. Reset y Configuración General
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth; 
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden; 
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Ambient Glows Intangibles para atmósfera de lujo */
+.ambient-glow {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(140px);
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.25; /* Súper sutil, no mancha la lectura */
+}
+.glow-1 {
+    top: -15%; left: -10%;
+    width: 60vh; height: 60vh;
+    background: radial-gradient(circle, var(--accent-orange) 0%, transparent 80%);
+}
+.glow-2 {
+    bottom: -15%; right: -10%;
+    width: 50vh; height: 50vh;
+    background: radial-gradient(circle, var(--accent-red) 0%, transparent 80%);
+}
+
+#tsparticles {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1; 
+    pointer-events: none; 
+}
+
+/* ==========================================================================
+   4. Layout Base Avanzado (V5 Flow)
+   ========================================================================== */
+.content-wrapper {
+    position: relative;
+    z-index: 1; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+section, header.hero {
+    width: 100%;
+    max-width: 1280px;
+    padding: 8rem 2rem; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrar los contenedores al documento */
+}
+
+/* Encabezados de Sección Universales Elegantes */
+.section-header {
+    text-align: left;
+    width: 100%;
+    max-width: 1280px;
+    margin-bottom: 4rem;
+}
+.section-title {
+    font-size: clamp(2.2rem, 5vw, 3.2rem); 
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+}
+.section-desc {
+    color: var(--text-secondary);
+    font-size: 1.15rem;
+}
+
+.highlight {
+    color: var(--accent-orange);
+    background: linear-gradient(135deg, #ff8a65, var(--accent-red));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+/* ==========================================================================
+   5. BOTONES Y UX CONVERSIÓN
+   ========================================================================== */
+@keyframes breathing {
+    0% { transform: scale(1); box-shadow: 0 5px 20px rgba(37, 211, 102, 0.2); }
+    50% { transform: scale(1.015); box-shadow: 0 10px 30px rgba(37, 211, 102, 0.35); }
+    100% { transform: scale(1); box-shadow: 0 5px 20px rgba(37, 211, 102, 0.2); }
+}
+
+@keyframes pulse-wa {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+    70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+.floating-wa {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--whatsapp-green);
+    color: white;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    animation: pulse-wa 2.5s infinite; 
+}
+
+.floating-wa:hover {
+    transform: scale(1.08) translateY(-3px); 
+    background-color: var(--whatsapp-green-dark);
+}
+
+.floating-wa .wa-icon {
+    width: 32px;
+    height: 32px;
+}
+
+/* Botones Híbridos */
+.btn-whatsapp-hero, .btn-whatsapp-huge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    background: linear-gradient(135deg, var(--whatsapp-green), #1bb052);
+    color: #fff;
+    border-radius: 50px;
+    font-weight: 700;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    animation: breathing 4.5s ease-in-out infinite; 
+    text-align: left;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.btn-whatsapp-hero::after, .btn-whatsapp-huge::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-whatsapp-hero:hover::after, .btn-whatsapp-huge:hover::after {
+    left: 100%;
+}
+
+.btn-whatsapp-hero {
+    padding: 1.25rem 2.5rem;
+}
+
+.btn-whatsapp-huge {
+    padding: 1.5rem 3rem;
+    margin-top: 3rem;
+    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+}
+
+.btn-whatsapp-hero:hover, .btn-whatsapp-huge:hover {
+    transform: translateY(-3px); 
+    box-shadow: 0 15px 40px rgba(37, 211, 102, 0.5);
+    background: linear-gradient(135deg, #1fce5d, var(--whatsapp-green-dark));
+}
+
+.icon-btn-hero { width: 28px; height: 28px; flex-shrink: 0; }
+.icon-btn-large { width: 34px; height: 34px; flex-shrink: 0; }
+
+.btn-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.btn-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: 0.5px;
+}
+
+.btn-microcopy {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 0.25rem;
+}
+
+/* ==========================================================================
+   6. Sections Particulares Rediseñadas (Alta Identidad)
+   ========================================================================== */
+
+/* ---------------- HERO (Descentrado Editorial) ---------------- */
+.hero {
+    min-height: 100vh;
+    padding-top: 10rem;
+    flex-direction: row; /* Permite uso de lado derecho si existe hero-visual */
+    align-items: center; /* Centrado vertical */
+}
+
+.hero-content {
+    width: 100%;
+    max-width: 850px;
+    align-self: flex-start;
+    text-align: left;
+}
+
+.badge-urgency {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(230, 57, 70, 0.1);
+    border: 1px solid rgba(230, 57, 70, 0.3);
+    color: #ff8a8a;
+    padding: 0.6rem 1.4rem;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    letter-spacing: 1.2px;
+}
+
+.pulse-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #ff4747;
+    border-radius: 50%;
+    animation: flash-dot 1.2s infinite alternate; 
+    box-shadow: 0 0 10px rgba(255, 71, 71, 0.9);
+}
+
+@keyframes flash-dot {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0.6; transform: scale(0.85); }
+}
+
+.hero h1 {
+    font-size: clamp(3.2rem, 7vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 2rem;
+    letter-spacing: -0.04em;
+    text-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+.hero-subtitle {
+    font-size: clamp(1.15rem, 3vw, 1.4rem);
+    color: var(--text-secondary);
+    margin-bottom: 4rem;
+    max-width: 700px;
+    line-height: 1.6;
+    font-weight: 400;
+    border-left: 3px solid var(--accent-orange);
+    padding-left: 1.5rem;
+}
+
+.trust-indicators {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 2.2rem;
+    margin-top: 4.5rem;
+}
+
+.trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 500;
+    font-size: 1.05rem;
+    color: #e4e4e7;
+}
+
+.trust-item svg {
+    color: var(--accent-orange);
+    width: 22px;
+    height: 22px;
+}
+
+/* ---------------- CARDS TILT MÁS LIMPIAS (Left Aligned) ---------------- */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    width: 100%;
+}
+
+.service-card {
+    background: linear-gradient(135deg, rgba(30, 32, 40, 0.4), rgba(18, 19, 24, 0.8));
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-top: 1px solid rgba(255, 255, 255, 0.08); /* Reflejo sutil superio */
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.02), 0 20px 40px rgba(0,0,0,0.5);
+    border-radius: 20px;
+    padding: 3.5rem 3rem;
+    text-align: left; /* Mayor elegancia */
+    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Resplandor interior de card que sube en hover */
+.card-glow {
+    position: absolute;
+    bottom: -50%; right: -50%;
+    width: 100%; height: 100%;
+    background: radial-gradient(circle, rgba(255, 94, 58, 0.1) 0%, transparent 70%);
+    transition: all 0.5s ease;
+    pointer-events: none;
+}
+
+.service-card:hover {
+    transform: translateY(-8px); 
+    border-color: rgba(255, 94, 58, 0.3);
+    box-shadow: inset 0 1px 0 rgba(255, 94, 58, 0.1), 0 30px 60px rgba(0,0,0,0.6);
+}
+
+.service-card:hover .card-glow {
+    bottom: -30%; right: -30%;
+    background: radial-gradient(circle, rgba(255, 94, 58, 0.15) 0%, transparent 70%);
+}
+
+.icon-accent {
+    color: var(--accent-orange);
+    width: 44px;
+    height: 44px;
+    margin-bottom: 2rem;
+    transition: transform 0.4s ease;
+    filter: drop-shadow(0 0 12px rgba(255, 94, 58, 0.2));
+}
+
+.service-card:hover .icon-accent {
+    transform: scale(1.1); 
+}
+
+.service-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.3;
+}
+
+.service-card p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+/* ---------------- BENEFICIOS GLOWING ---------------- */
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 3rem;
+    width: 100%;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    background: var(--bg-surface-solid);
+    padding: 3rem 2.5rem;
+    border-radius: 16px;
+    border-left: 3px solid var(--accent-red);
+    box-shadow: -5px 0 20px rgba(230, 57, 70, 0.05); /* Sombra ambiental del borde */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.benefit-item:hover {
+    transform: translateX(8px); 
+    box-shadow: -5px 0 25px rgba(230, 57, 70, 0.15); 
+    background: rgba(30, 32, 40, 0.8);
+}
+
+.benefit-icon-wrapper {
+    background: rgba(230, 57, 70, 0.05);
+    padding: 1rem;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.benefit-icon {
+    width: 28px;
+    height: 28px;
+    color: #ff5e5e;
+}
+
+.benefit-text h3 {
+    font-size: 1.35rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.benefit-text p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* ---------------- TESTIMONIOS (Masonry Staggered Offset V5) ---------------- */
+.testimonials {
+    align-items: center;
+}
+.testimonials .section-header {
+    text-align: center;
+}
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    width: 100%;
+    align-items: start; /* Permite uso de margin-top individual */
+}
+
+/* Offset escalonado sofisticado */
+@media (min-width: 1000px) {
+    .offset-1 { margin-top: 3rem; }
+    .offset-2 { margin-top: 6rem; }
+}
+
+.testimonial-card {
+    background: linear-gradient(135deg, rgba(30, 32, 40, 0.5), rgba(18, 19, 24, 0.9));
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    padding: 3.5rem 3rem;
+    border-radius: 20px;
+    position: relative;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+.stars {
+    color: #f59e0b;
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 2rem;
+}
+
+.stars svg {
+    width: 20px;
+    height: 20px;
+    fill: #f59e0b;
+}
+
+blockquote {
+    font-style: normal;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    font-size: 1.15rem;
+    line-height: 1.6;
+}
+
+.testimonial-author {
+    color: var(--text-secondary);
+    font-weight: 700;
+    display: block;
+    text-align: right;
+    font-size: 1.05rem;
+}
+.testimonial-author::before {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 2px;
+    background: var(--accent-orange);
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* ---------------- COBERTURA (Gradient MESH) ---------------- */
+.coverage-box {
+    background: 
+        radial-gradient(circle at 10% 10%, rgba(255, 94, 58, 0.1), transparent 50%),
+        radial-gradient(circle at 90% 90%, rgba(230, 57, 70, 0.1), transparent 50%),
+        var(--bg-surface-solid);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 30px;
+    padding: 6rem 4rem;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+}
+
+.coverage-icon {
+    width: 54px;
+    height: 54px;
+    color: var(--accent-orange);
+    margin-bottom: 2rem;
+}
+
+.coverage-box h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    margin-bottom: 3rem;
+    font-weight: 800;
+}
+
+.zones-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.25rem;
+}
+
+.zone-tag {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    padding: 1.2rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.zone-tag:hover {
+    background: var(--bg-surface-light);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* ---------------- FAQ EDITORIAL (Líneas Limpias, Sin Bloques Solidos) ---------------- */
+.faq {
+    align-items: center; /* Contenedor en centro */
+}
+.faq .section-header {
+    text-align: center;
+}
+.faq-list {
+    width: 100%;
+    max-width: 800px; /* Ancho acotado para lectura ideal en FAQ */
+    display: flex;
+    flex-direction: column;
+}
+
+.faq-item {
+    background: transparent;
+    padding: 2.5rem 0;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Estilo editorial limpio */
+    border-radius: 0;
+    transition: none;
+}
+
+.faq-question {
+    font-size: 1.35rem;
+    margin-bottom: 1rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.3;
+    display: flex;
+    align-items: flex-start;
+}
+
+.faq-question::before {
+    content: 'Q.'; /* Identidad visual fuerte */
+    color: var(--accent-orange);
+    margin-right: 1rem;
+    font-size: 1.1em;
+}
+
+.faq-answer {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    padding-left: 2.5rem; /* Margen alienado a la letra Q. */
+}
+
+/* ---------------- CTA FINAL IMPACTANTE ---------------- */
+.final-cta {
+    text-align: center;
+    background: linear-gradient(180deg, transparent, rgba(230, 57, 70, 0.05));
+    width: 100%;
+    padding: 8rem 2rem 6rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.final-cta h2 {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    margin-bottom: 1.5rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+}
+
+.final-cta p {
+    font-size: clamp(1.1rem, 2vw, 1.25rem);
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+    max-width: 700px;
+}
+
+.cta-note {
+    margin-top: 3rem;
+    color: var(--accent-orange);
+    font-weight: 700;
+    display: block;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* ---------------- FOOTER ---------------- */
+footer {
+    text-align: center;
+    padding: 3rem;
+    color: #666;
+    border-top: 1px solid rgba(255,255,255,0.02);
+    width: 100%;
+    font-size: 0.95rem;
+    background-color: var(--bg-dark);
+}
+
+/* ==========================================================================
+   7. Media Queries (Mobile First y Accesibilidad)
+   ========================================================================== */
+@media (max-width: 900px) {
+    .section-header, .hero-content {
+        text-align: center;
+        align-items: center; /* Devolver al centro del documento flex */
+        align-self: center; /* Propio axis */
+    }
+    
+    .hero-subtitle {
+        border-left: none;
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .hero-actions, .trust-indicators {
+        justify-content: center; /* En móvil / tablet se alinea al medio de rigor. */
+    }
+
+    /* Quitar Offset de Testimonios en modo cascada */
+    .offset-1, .offset-2 { 
+        margin-top: 0 !important; 
+    }
+}
+
+@media (max-width: 768px) {
+    .trust-indicators {
+        flex-direction: column;
+        gap: 1.25rem;
+        padding-top: 1.5rem;
+    }
+    
+    .floating-wa {
+        width: 60px;
+        height: 60px;
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    section {
+        padding: 4rem 1.5rem;
+    }
+    
+    header.hero {
+        padding-top: 7rem;
+    }
+
+    .btn-whatsapp-hero, .btn-whatsapp-huge {
+        padding: 1.25rem 1.5rem;
+        width: 100%;
+        text-align: center; 
+    }
+
+    .btn-content {
+        align-items: center; 
+    }
+
+    .btn-title { font-size: 1.1rem; }
+    .btn-whatsapp-huge .btn-title { font-size: 1.2rem; }
+    .btn-microcopy { font-size: 0.8rem; }
+
+    .coverage-box {
+        padding: 3.5rem 1.5rem;
+    }
+}
