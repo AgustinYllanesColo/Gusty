@@ -2,8 +2,8 @@
    1. Variables Base y Tokens de Diseño — V7 Performance
    ========================================================================== */
 :root {
-    --bg-dark: #050508;
-    --bg-card: #0e0f14;
+    --bg-dark: #030305;
+    --bg-card: #0c0d12;
     --bg-card-hover: #131419;
     --bg-elevated: #111216;
 
@@ -43,10 +43,9 @@
 body {
     font-family: var(--font-sans);
     background-color: var(--bg-dark);
-    /* Single subtle gradient — replaces 4-layer stack */
+    /* Fondo limpio estático. Iluminación "Spotlight Térmico" enfocada en Hero */
     background-image:
-        radial-gradient(ellipse 80% 50% at 15% 0%, rgba(255, 94, 58, 0.035), transparent 60%),
-        radial-gradient(ellipse 60% 40% at 85% 100%, rgba(230, 57, 70, 0.025), transparent 55%);
+        radial-gradient(ellipse 110% 80% at 50% -5%, rgba(255, 94, 58, 0.15) 0%, rgba(230, 57, 70, 0.08) 50%, transparent 85%);
     color: var(--text-primary);
     line-height: 1.65;
     min-height: 100vh;
@@ -60,49 +59,7 @@ a {
     text-decoration: none;
 }
 
-/* ==========================================================================
-   3. Ambient Atmosphere — Lightweight
-   ========================================================================== */
-.ambient-glow {
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(100px);
-    z-index: 0;
-    pointer-events: none;
-}
 
-.glow-1 {
-    top: -10%;
-    left: -8%;
-    width: 55vh;
-    height: 55vh;
-    background: radial-gradient(circle, var(--accent-orange) 0%, transparent 70%);
-    opacity: 0.15;
-    animation: glow-drift 20s ease-in-out infinite alternate;
-}
-
-.glow-2 {
-    bottom: -10%;
-    right: -8%;
-    width: 45vh;
-    height: 45vh;
-    background: radial-gradient(circle, var(--accent-red) 0%, transparent 70%);
-    opacity: 0.12;
-    animation: glow-drift 24s ease-in-out infinite alternate-reverse;
-}
-
-@keyframes glow-drift {
-    0%   { transform: translate(0, 0); }
-    100% { transform: translate(3vw, 3vh); }
-}
-
-#tsparticles {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: -1;
-    pointer-events: none;
-}
 
 /* ==========================================================================
    4. Layout Base
@@ -290,34 +247,11 @@ section, header.hero {
     flex-direction: row;
     align-items: center;
     position: relative;
+    z-index: 1;
 }
 
-/* Vertical accent line */
-.hero::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 15%;
-    height: 70%;
-    width: 3px;
-    background: linear-gradient(180deg, transparent, var(--accent-orange), var(--accent-red), transparent);
-    border-radius: 2px;
-    opacity: 0.6;
-}
-
-/* Decorative circle — static, no animation */
-.hero::after {
-    content: '';
-    position: absolute;
-    top: 12%;
-    right: 5%;
-    width: 280px;
-    height: 280px;
-    border: 1px solid rgba(255, 94, 58, 0.06);
-    border-radius: 50%;
-    pointer-events: none;
-    opacity: 0.4;
-}
+/* Nota: Se han removido las líneas verticales y círculos decorativos para
+   darle protagonismo total al Focal Spotlight y la limpieza del contenido */
 
 .hero-content {
     width: 100%;
@@ -803,7 +737,7 @@ blockquote {
 .final-cta {
     text-align: center;
     background:
-        radial-gradient(ellipse 70% 50% at 50% 80%, rgba(230, 57, 70, 0.05), transparent 60%);
+        radial-gradient(ellipse 100% 80% at 50% 50%, rgba(255, 94, 58, 0.14) 0%, rgba(230, 57, 70, 0.06) 45%, transparent 80%);
     width: 100%;
     padding: 8rem 2.5rem 6rem;
     border-top: 1px solid rgba(255, 255, 255, 0.04);
@@ -886,20 +820,18 @@ footer {
         justify-content: center;
     }
 
-    .hero::before {
-        display: none;
-    }
-
-    .hero::after {
-        display: none;
-    }
-
     .offset-1, .offset-2 {
         margin-top: 0 !important;
     }
 }
 
 @media (max-width: 768px) {
+    body {
+        /* Gradiente más suave en móvil para priorizar legibilidad y contraste */
+        background-image:
+            radial-gradient(ellipse 120% 60% at 50% -5%, rgba(255, 94, 58, 0.08) 0%, rgba(230, 57, 70, 0.04) 50%, transparent 80%);
+    }
+
     section {
         padding: 4rem 1.5rem;
     }
@@ -945,11 +877,6 @@ footer {
         padding-left: 1.5rem;
     }
 
-    /* Kill ambient glows on mobile entirely — biggest perf win */
-    .ambient-glow {
-        display: none;
-    }
-
     .service-card {
         padding: 2.5rem 2rem;
     }
@@ -965,6 +892,12 @@ footer {
     .testimonial-card::before {
         font-size: 3.5rem;
         right: 1.5rem;
+    }
+
+    .final-cta {
+        padding: 6rem 1.5rem 5rem;
+        background:
+            radial-gradient(ellipse 120% 60% at 50% 50%, rgba(255, 94, 58, 0.08) 0%, rgba(230, 57, 70, 0.04) 50%, transparent 80%);
     }
 }
 
