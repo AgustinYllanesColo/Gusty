@@ -12,47 +12,62 @@ Hogares y comercios pequeños con urgencias, que necesitan atención rápida y g
 ## Zona de Cobertura
 Buenos Aires (Zona Sur, CABA, Oeste, Este).
 
-## Estilos y Diseño Visual Elevado (Capa V6 — Rediseño Visual Completo)
-- Visual moderno, **Editorial-SaaS Ultra Premium con alta identidad de marca**.
-- Fondo negro puro (`#050508`) con sistema de **Ambient Glows animados** (drift suave via CSS keyframes) que generan una atmósfera viva sin impactar GPU.
-- Acentos naranja (`#ff5e3a`) y rojo (`#e63946`) integrados mediante gradientes consistentes a lo largo de todo el diseño.
-- **Sistema de tokens CSS** unificado: variables para bordes (`--border-subtle`, `--border-glass`, `--border-accent`), sombras (`--shadow-card`, `--shadow-elevated`, `--shadow-glow-orange`), radios (`--radius-card`, `--radius-pill`) y elevaciones.
-- Glassmorphism refinado con `backdrop-filter: blur(16px)`, bordes cristalinos y `inset-shadows` sutiles.
-- Tipografía con jerarquía ultra fuerte: `--text-heading` (#fff) para títulos, `--text-primary` (#f0f0f3) para cuerpo, `--text-secondary` (#8a8f9e) para texto de apoyo.
+## Estilos y Diseño Visual Elevado (Capa V6.1 — Polish Final)
+- Visual moderno, **Editorial-SaaS Ultra Premium con identidad de marca consolidada**.
+- **Fondo multicapa con profundidad atmosférica**: Se abandonó el negro plano (`#050508`) por un sistema de gradientes radiales cálidos/fríos (`radial-gradient ellipse`) posicionados estratégicamente que generan una ilusión de iluminación ambiental sin impactar rendimiento.
+- **Micro-textura noise** (SVG inline como `background-image`): Overlay fijo a `opacity: 0.025` que añade rugosidad visual imperceptible pero que elimina el efecto "lavado digital" en pantallas retina. Se reduce a `0.015` en móvil.
+- **Gradientes de sección**: Cada sección principal (`.services`, `.benefits`, `.testimonials`, `.faq`) tiene un `radial-gradient` propio ultra-sutil que rompe la monotonía sin crear cortes visibles.
+- Acentos naranja (`#ff5e3a`) y rojo (`#e63946`) integrados mediante gradientes consistentes.
+- **Sistema de tokens CSS unificado V6.1**: variables para bordes (`--border-subtle`, `--border-glass`, `--border-accent`), sombras con inset highlight (`--shadow-card`, `--shadow-elevated`), radios, y elevaciones.
+- Glassmorphism refinado (`backdrop-filter: blur`) con bordes cristalinos top (`border-top` con mayor opacidad) que simulan reflejo de luz superior.
+- Tipografía con jerarquía ultra fuerte: `--text-heading` (#fff), `--text-primary` (#f0f0f3), `--text-secondary` (#8a8f9e).
 
-## Dirección Estética V6 — Decisiones de Rediseño
+## Dirección Estética V6.1 — Decisiones de Rediseño
+
+### Tratamiento del Fondo (V6.1 clave)
+- **Problema resuelto**: El fondo plano `#050508` generaba una percepción de "vacío digital", haciendo que las secciones intermedias (entre cards) se sientan muertas.
+- **Solución implementada**:
+  1. `background-image` del `body` con 4 capas de gradientes: naranja cálido top-left, rojo cálido bottom-right, azul profundo central, gradiente lineal vertical con variación de tono.
+  2. Pseudo-elemento `body::before` con SVG noise (`feTurbulence fractalNoise`) como textura fija global. Totalmente CSS, cero HTTP requests.
+  3. Secciones individuales con `radial-gradient` subliminal que crea "zonas de interés visual" sin borders ni divisores explícitos.
+- **Criterio de diseño**: El fondo debe sentirse vivo pero nunca competir con el contenido. Toda iluminación ambiental opera por debajo del umbral de atención consciente.
+
+### Cards y Componentes — Refinamiento de Bordes
+- Todas las cards (`.service-card`, `.benefit-item`, `.testimonial-card`, `.coverage-box`) recibieron un `border-top: 1px solid rgba(255,255,255, 0.05-0.08)` que simula un reflejo de luz superior, creando efecto de relieve/profundidad (flotan sobre el fondo).
+- Sombras con `inset 0 1px 0 rgba(255,255,255,0.02)` incorporado a los tokens `--shadow-card` y `--shadow-elevated`.
+- `backdrop-filter: blur()` aplicado a service cards (8px), benefits (6px) y coverage (10px) para reforzar glassmorphism contra el fondo texturizado. Desactivado en móvil (≤768px) con `backdrop-filter: none` por rendimiento GPU.
+
 ### Hero
-- **Composición asimétrica dramática**: Línea vertical acentuada con gradiente naranja→rojo en el borde izquierdo (`::before`). Anillo decorativo geométrico animado en la esquina superior derecha (`::after`).
-- **Título dominante**: `clamp(3rem, 7vw, 5.8rem)` con `font-weight: 900`, tracking ultra apretado (`-0.045em`) y text-shadow con glow naranja sutil.
-- **Highlight animado**: El texto en gradiente (`.highlight`) usa `background-size: 200%` con animación `gradient-shift` suave de 6s.
-- **Subtítulo con glow lateral**: Borde izquierdo naranja + pseudo-elemento con `radial-gradient` que simula difusión lumínica.
-- Badge de urgencia con `backdrop-filter: blur(12px)` y tracking expandido para aspecto institucional.
+- Composición asimétrica con línea vertical gradiente izquierda y anillo geométrico animado derecho.
+- Título dominante con tracking ultra-tight y text-shadow con glow naranja sutil.
+- Highlight con gradiente animado (`gradient-shift` 6s).
+- Subtítulo con glow lateral radiante.
 
-### Sistema Visual Unificado
-- Cada `section-title` lleva un `::after` con barra gradiente naranja→rojo de 60px como marcador visual de identidad.
-- Service cards con **barra acentuada superior** (`::before`) que pasa de 50% a 100% opacidad en hover.
-- Benefit items con **efecto scanner** (pseudo-elemento `::after` que barre de izquierda a derecha en hover).
-- Testimonials con **comilla tipográfica decorativa** gigante (5rem) en gradiente translúcido, posicionada absolutamente.
-- Coverage box con **barra animada `border-sweep`** que recorre el borde superior con movimiento pendular.
-- FAQ items con **barra lateral emergente** que se expande de 0% a 60% en hover + desplazamiento del texto.
+### Secciones con Alta Identidad
+- Service cards con barra acentuada superior `::before`.
+- Benefits con efecto scanner `::after`.
+- Testimonials con comilla decorativa gigante.
+- Coverage con barra animada `border-sweep`.
+- FAQ con barra lateral emergente en hover.
 
 ### Transiciones y Curvas
-- Curva de movimiento principal: `cubic-bezier(0.34, 1.56, 0.64, 1)` — transición "spring" elástica para hover cards y botones.
-- Ambient glows con `will-change: transform` y animaciones de 18-22s para movimiento imperceptible y suave.
-- Todas las animaciones respetan `prefers-reduced-motion: reduce` eliminando movement y colapsando duraciones a 0.01ms.
+- Curva principal: `cubic-bezier(0.34, 1.56, 0.64, 1)` — spring elástico.
+- Ambient glows: 18-22s, `will-change: transform`.
+- `prefers-reduced-motion: reduce` respetado globalmente.
 
-### Mobile
-- Decorativos del hero (línea vertical, anillo geométrico) se ocultan en ≤768px para mantener limpieza.
-- Glows ambientales reducidos a `opacity: 0.12` y `blur(120px)` en móvil para priorizar legibilidad.
-- Cards, benefits y testimonials con paddings reducidos proporcionalmente.
-- CTA botones al 100% de ancho con centrado de texto.
+### Mobile (≤768px)
+- Decorativos del hero ocultos.
+- Glows: `opacity: 0.12`, `blur(120px)`.
+- Noise texture: `opacity: 0.015`.
+- `backdrop-filter: none` en cards/benefits/coverage.
+- CTAs al 100% width.
 
 ## Stack Tecnológico Orgánico
 - HTML5 (Semántico Puro - SEO Local Validado)
-- CSS3 (Vanilla PURO - Animated Mesh Gradients, CSS Pseudo-element Decorators, Keyframe Animations)
-- JavaScript (Vanilla puro - Rendimiento ultra alto de iteraciones lógicas)
+- CSS3 (Vanilla PURO - Layered Radial Gradients, SVG Noise Texture, CSS Pseudo-element Decorators, Keyframe Animations)
+- JavaScript (Vanilla puro - Rendimiento ultra alto)
 - Google Fonts: **Inter** (peso de `400` al `900`).
-- Librerías externas permitidas (CDN): AOS, VanillaTilt, tsParticles, Lucide Icons.
+- Librerías externas (CDN): AOS, VanillaTilt, tsParticles, Lucide Icons.
 
 ## Reglas de Desarrollo Especificas
 - NO usar frameworks (Tailwind, Bootstrap, React, etc.) y conservar la limpieza y velocidad extrema al momento de procesar un móvil con urgencia real de red LTE débil.
